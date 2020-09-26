@@ -1,10 +1,10 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { set_task } from "../../Redux/Action";
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -35,14 +35,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
 const AddTask = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, errors, control } = useForm();
   const dispatch = useDispatch();
+  const buttonDisable = useSelector((state) => state.buttonDisable);
   const classes = useStyles();
-  console.log(classes);
   const onSubmit = (data) => {
     dispatch(set_task(data));
-    reset();
+    reset({
+      task: "",
+    });
   };
   return (
     <Box
@@ -50,19 +53,25 @@ const AddTask = () => {
       onSubmit={handleSubmit(onSubmit)}
       className={classes.formContainer}
     >
-      <TextField
+      <Controller
+        control={control}
+        as={TextField}
         id="task"
         name="task"
         label="Add Task"
-        inputRef={register}
+        rules={{ required: "Enter the task" }}
         variant="outlined"
         className={classes.inputText}
+        error={errors?.task ? true : false}
+        helperText={errors?.task?.message}
+        defaultValue=""
       />
       <Button
         type="submit"
         variant="contained"
         color="primary"
         className={classes.addButton}
+        disabled={buttonDisable}
       >
         Add Task
       </Button>

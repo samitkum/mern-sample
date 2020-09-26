@@ -1,4 +1,10 @@
-import { GET_TASKS, SET_LOADING, SET_TASK, DELETE_TASK } from "./Types";
+import {
+  GET_TASKS,
+  SET_LOADING,
+  SET_TASK,
+  DELETE_TASK,
+  DISABLE_BUTTON,
+} from "./Types";
 import axios from "axios";
 export const get_tasks = () => (dispatch) => {
   dispatch({ type: SET_LOADING });
@@ -8,6 +14,7 @@ export const get_tasks = () => (dispatch) => {
 };
 
 export const set_task = (task) => (dispatch) => {
+  dispatch({ type: DISABLE_BUTTON });
   axios.post("api/tasks", task).then((res) => {
     return dispatch({ type: SET_TASK, payload: res.data.task });
   });

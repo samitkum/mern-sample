@@ -10,6 +10,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import { get_tasks, delete_task } from "../../Redux/Action";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
   listContainer: {
@@ -41,7 +42,11 @@ const ListContainer = () => {
     return <h1>Loading...!!</h1>;
   }
   if (tasks?.length === 0) {
-    return <h1>No Task Pending</h1>;
+    return (
+      <Typography variant="h6" color="primary" align="center">
+        No Task Pending
+      </Typography>
+    );
   }
   return (
     <List className={classes.listContainer}>

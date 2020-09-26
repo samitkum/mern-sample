@@ -8,13 +8,16 @@ import { useDispatch } from "react-redux";
 import { set_task } from "../../Redux/Action";
 const useStyles = makeStyles((theme) => ({
   formContainer: {
-    margin: "2em auto",
+    margin: "0.5em auto",
+    padding: "2em",
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     [theme.breakpoints.down("xs")]: {
       flexDirection: "column",
+      padding: "2em",
+      margin: 0,
     },
   },
   addButton: {
@@ -36,6 +39,7 @@ const AddTask = () => {
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
   const classes = useStyles();
+  console.log(classes);
   const onSubmit = (data) => {
     dispatch(set_task(data));
     reset();

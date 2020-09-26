@@ -9,9 +9,31 @@ import IconButton from "@material-ui/core/IconButton";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { get_tasks, delete_task } from "../../Redux/Action";
 import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  listContainer: {
+    overflow: "auto",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+  listItem: {
+    transition: "all 250ms",
+    backgroundColor: "#dfdfdf",
+    "&:hover": {
+      backgroundColor: "#838383",
+      cursor: "pointer",
+    },
+  },
+  delete: {
+    color: "tomato",
+  },
+}));
 const ListContainer = () => {
   const dispatch = useDispatch();
   const { tasks, loading } = useSelector((state) => state);
+  const classes = useStyles();
   useEffect(() => {
     dispatch(get_tasks());
   }, []);
@@ -22,9 +44,9 @@ const ListContainer = () => {
     return <h1>No Task Pending</h1>;
   }
   return (
-    <List>
+    <List className={classes.listContainer}>
       {tasks?.map(({ _id, task, date }) => (
-        <ListItem key={_id}>
+        <ListItem key={_id} className={classes.listItem}>
           <ListItemAvatar>
             <Avatar>
               <ImageIcon />
@@ -35,7 +57,7 @@ const ListContainer = () => {
             secondary={new Date(date).toLocaleDateString()}
           />
           <IconButton onClick={() => dispatch(delete_task(_id))}>
-            <CancelIcon />
+            <CancelIcon className={classes.delete} />
           </IconButton>
         </ListItem>
       ))}

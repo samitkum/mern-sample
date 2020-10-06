@@ -4,7 +4,7 @@ import {
   SET_TASK,
   DELETE_TASK,
   DISABLE_BUTTON,
-} from "./Types";
+} from "../Types";
 
 const initialState = {
   tasks: null,

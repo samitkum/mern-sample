@@ -7,7 +7,7 @@ import ImageIcon from "@material-ui/icons/Image";
 import List from "@material-ui/core/List";
 import IconButton from "@material-ui/core/IconButton";
 import CancelIcon from "@material-ui/icons/Cancel";
-import { get_tasks, delete_task } from "../../Redux/Action";
+import { get_tasks, delete_task } from "../../Redux/Task/Action";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ListContainer = () => {
   const dispatch = useDispatch();
-  const { tasks, loading } = useSelector((state) => state);
+  const { tasks, loading } = useSelector((state) => state.task);
   const classes = useStyles();
   useEffect(() => {
     dispatch(get_tasks());

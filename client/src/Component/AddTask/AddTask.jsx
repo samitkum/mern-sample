@@ -5,7 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { set_task } from "../../Redux/Action";
+import { set_task } from "../../Redux/Task/Action";
 const useStyles = makeStyles((theme) => ({
   formContainer: {
     margin: "0.5em auto",
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const AddTask = () => {
   const { register, handleSubmit, reset, errors, control } = useForm();
   const dispatch = useDispatch();
-  const buttonDisable = useSelector((state) => state.buttonDisable);
+  const buttonDisable = useSelector((state) => state.task.buttonDisable);
   const classes = useStyles();
   const onSubmit = (data) => {
     dispatch(set_task(data));

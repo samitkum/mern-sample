@@ -4,7 +4,7 @@ import {
   SET_TASK,
   DELETE_TASK,
   DISABLE_BUTTON,
-} from "./Types";
+} from "../Types";
 import axios from "axios";
 export const get_tasks = () => (dispatch) => {
   dispatch({ type: SET_LOADING });
